@@ -86,6 +86,5 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
 
-
     }
 }
