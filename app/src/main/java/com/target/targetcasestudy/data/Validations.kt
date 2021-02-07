@@ -20,9 +20,36 @@ package com.target.targetcasestudy.data
  * @param creditCardNumber - credit card number of (13, 19) digits
  * @return true if a credit card number is believed to be valid,
  * otherwise false
+ *
+ *
  */
-fun validateCreditCard(creditCardNumber: String): Boolean {
+
+class Validations {
+
+    private fun validateCreditCard(creditCardNumber: String): Boolean {
+        val nDigits: Int = creditCardNumber.length
+        var nSum = 0
+        var isSecond = false
+        for (i in nDigits - 1 downTo 0) {
+            var d: Int = creditCardNumber[i] - '0'
+            if (isSecond) d *= 2
+
+            nSum += d / 10
+            nSum += d % 10
+            isSecond = !isSecond
+        }
+        return nSum % 10 == 0
+
+    }
+
+    fun checkValidity(creditCardNumber: String): Boolean {
+        val nDigits: Int = creditCardNumber.length
+        var isValid = false
+        if (validateCreditCard(creditCardNumber)) {
+            isValid = nDigits in 14..18
+        }
+        return isValid
+    }
 
 
-  return false
 }

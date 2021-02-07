@@ -40,7 +40,6 @@ class DealItemsViewModel : ViewModel() {
     private fun getBookListObserverRx(): Observer<DealItem> {
         return object : Observer<DealItem> {
             override fun onComplete() {
-                //hide progress indicator .
             }
 
             override fun onError(e: Throwable) {
@@ -52,7 +51,6 @@ class DealItemsViewModel : ViewModel() {
             }
 
             override fun onSubscribe(d: Disposable) {
-                //start showing progress indicator.
             }
         }
     }
@@ -68,7 +66,6 @@ class DealItemsViewModel : ViewModel() {
     private fun getDealItemObserverRx(): Observer<ProductsData> {
         return object : Observer<ProductsData> {
             override fun onComplete() {
-                //hide progress indicator .
             }
 
             override fun onError(e: Throwable) {
@@ -81,7 +78,6 @@ class DealItemsViewModel : ViewModel() {
             }
 
             override fun onSubscribe(d: Disposable) {
-                //start showing progress indicator.
             }
         }
     }

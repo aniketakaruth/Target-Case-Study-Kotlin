@@ -36,10 +36,8 @@ class DealItemFragment : Fragment() {
     lateinit var productDesc: TextView
     @BindView(R.id.product_image)
     lateinit var productImage: ImageView
-
     @BindView(R.id.loading_layout)
     lateinit var loadingView :LinearLayout
-
     @BindView(R.id.setView)
     lateinit var setView :ScrollView
 
@@ -48,7 +46,7 @@ class DealItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_deal_item, container, false)
-        ButterKnife.bind(this, view)
+        ButterKnife.bind(this,view)
         return view;
     }
 
