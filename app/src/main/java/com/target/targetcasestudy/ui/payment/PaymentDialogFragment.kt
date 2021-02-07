@@ -1,7 +1,6 @@
 package com.target.targetcasestudy.ui.payment
 
 import android.os.Bundle
-import android.service.autofill.Validators
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
