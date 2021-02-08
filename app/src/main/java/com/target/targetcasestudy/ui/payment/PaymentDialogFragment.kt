@@ -58,7 +58,7 @@ class PaymentDialogFragment : DialogFragment() {
                 } else {
                     submitButton.isEnabled = false
                     cardInputLayout.isErrorEnabled = true
-                    cardInputLayout.error = "Please valid card number"
+                    cardInputLayout.error = "Please enter valid card number"
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

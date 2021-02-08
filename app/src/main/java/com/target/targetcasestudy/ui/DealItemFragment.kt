@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.target.targetcasestudy.OnBackPressed
@@ -91,6 +92,11 @@ class DealItemFragment : Fragment() {
         }
 
 
+    }
+
+    @OnClick(R.id.back)
+    fun onBackButtonPressed(){
+        activity!!.supportFragmentManager.popBackStack()
     }
 
 
