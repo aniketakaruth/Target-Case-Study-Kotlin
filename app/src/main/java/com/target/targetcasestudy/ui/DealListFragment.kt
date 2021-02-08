@@ -66,7 +66,7 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener,Swipe
     }
 
     private fun fetchDealsList() {
-        viewModel.getBookListObserver().observe(viewLifecycleOwner, Observer<DealItem> {
+        viewModel.getDealListObserver().observe(viewLifecycleOwner, Observer<DealItem> {
             if (it != null) {
                 loaderView!!.visibility = View.GONE
                 dealsItemAdapter.dealsList = it.productsList!!
@@ -85,10 +85,10 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener,Swipe
     override fun onDealClicked(id: Int) {
         val bundle = Bundle()
         bundle.putInt("DEAL_ID", id)
-        val fragmentTwo = DealItemFragment()
-        fragmentTwo.arguments = bundle
+        val dealItemFragment = DealItemFragment()
+        dealItemFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragmentTwo)
+            .replace(R.id.container, dealItemFragment)
             .addToBackStack(null)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
@@ -97,7 +97,7 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener,Swipe
 
     override fun onRefresh() {
         loaderView.visibility = View.GONE
-        viewModel.getBookListObserver().observe(viewLifecycleOwner, Observer<DealItem> {
+        viewModel.getDealListObserver().observe(viewLifecycleOwner, Observer<DealItem> {
             if (it != null) {
                 loaderView.visibility = View.GONE
                 dealsItemAdapter.dealsList = it.productsList!!

@@ -59,8 +59,6 @@ class DealItemFragment : Fragment() {
         setView.visibility = View.GONE
         viewModel.getDealsItemObserver().observe(viewLifecycleOwner, Observer<ProductsData> {
             if (it != null) {
-                loadingView.visibility = View.GONE
-                setView.visibility = View.VISIBLE
                 setProductData(it)
             } else {
                 loadingView.visibility = View.GONE
@@ -74,6 +72,8 @@ class DealItemFragment : Fragment() {
 
 
     fun setProductData(data: ProductsData) {
+        loadingView.visibility = View.GONE
+        setView.visibility = View.VISIBLE
         if (!data.imageUrl.isEmpty()) {
             Glide.with(productImage.context)
                 .load(Uri.parse(data.imageUrl))

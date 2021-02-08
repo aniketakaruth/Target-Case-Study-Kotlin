@@ -21,7 +21,7 @@ class DealItemsViewModel : ViewModel() {
 
     var dealsItem: MutableLiveData<ProductsData> = MutableLiveData()
 
-    fun getBookListObserver(): MutableLiveData<DealItem> {
+    fun getDealListObserver(): MutableLiveData<DealItem> {
         return dealsList
     }
 
@@ -34,10 +34,10 @@ class DealItemsViewModel : ViewModel() {
         retroInstance.getDeals()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(getBookListObserverRx())
+            .subscribe(getDealListObserverRx())
     }
 
-    private fun getBookListObserverRx(): Observer<DealItem> {
+    private fun getDealListObserverRx(): Observer<DealItem> {
         return object : Observer<DealItem> {
             override fun onComplete() {
             }
@@ -57,7 +57,7 @@ class DealItemsViewModel : ViewModel() {
 
     fun fetchDealDetails(id: Int) {
         val retroInstance = RetrofitInstance.getRetroInstance().create(TargetApiService::class.java)
-        retroInstance.getProductDetails(id)
+        retroInstance.getDealDetail(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(getDealItemObserverRx())

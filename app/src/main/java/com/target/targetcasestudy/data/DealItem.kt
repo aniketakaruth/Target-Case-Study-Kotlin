@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class DealItem(
   @SerializedName("products") val productsList: ArrayList<ProductsData>?
 )
-
-
 data class ProductsData(
     @SerializedName("id")  val id: Int,
     @SerializedName("title") val title: String,

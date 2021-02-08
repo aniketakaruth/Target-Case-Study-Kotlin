@@ -11,7 +11,7 @@ import retrofit2.http.Path
     @GET("deals")
     fun getDeals(): Observable<DealItem>
 
-    @GET("deals/{product_id}")
-    fun getProductDetails(@Path("product_id") path: Int): Observable<ProductsData>
+    @GET("deals/{deal_id}")
+    fun getDealDetail(@Path("deal_id") path: Int): Observable<ProductsData>
 
 }
