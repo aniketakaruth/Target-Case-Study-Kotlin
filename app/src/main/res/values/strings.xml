@@ -10,4 +10,5 @@
   <string name="submit">Submit</string>
   <string name="cancel">Cancel</string>
   <string name="credit_card_number_hint">Credit card number</string>
+    <string name="target_deals">Target Deals</string>
 </resources>

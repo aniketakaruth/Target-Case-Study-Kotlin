@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.data.Validations
 
@@ -26,45 +27,54 @@ import com.target.targetcasestudy.data.Validations
  */
 class PaymentDialogFragment : DialogFragment() {
 
-  private lateinit var submitButton: Button
-  private lateinit var creditCardInput: EditText
+    private lateinit var submitButton: Button
+    private lateinit var creditCardInput: TextInputEditText
+    private lateinit var cardInputLayout: TextInputLayout
 
-  private  val validators = Validations()
+    private val validators = Validations()
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    val root = inflater.inflate(R.layout.dialog_payment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.dialog_payment, container, false)
 
-    submitButton = root.findViewById(R.id.submit)
-    creditCardInput = root.findViewById(R.id.card_number)
-    val cancelButton: Button = root.findViewById(R.id.cancel)
-    submitButton.isEnabled=false
-
-
-    //Text Change listener to observe  the text change and enable the submit button
-
-    creditCardInput.addTextChangedListener(object : TextWatcher {
-      override fun afterTextChanged(s: Editable?) {
-        submitButton.isEnabled = validators.checkValidity(s.toString())
-      }
-
-      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-      }
-
-      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-      }
-    })
+        submitButton = root.findViewById(R.id.submit)
+        creditCardInput = root.findViewById(R.id.card_number)
+        cardInputLayout =root.findViewById(R.id.card_number_container)
+        val cancelButton: Button = root.findViewById(R.id.cancel)
+        submitButton.isEnabled = false
 
 
+        //Text Change listener to observe  the text change and enable the submit button
 
-    cancelButton.setOnClickListener { dismiss() }
-    submitButton.setOnClickListener { dismiss() }
+        creditCardInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (validators.checkValidity(s.toString())) {
+                    submitButton.isEnabled = true
+                    cardInputLayout.isErrorEnabled = false
+                    cardInputLayout.error = ""
+                } else {
+                    submitButton.isEnabled = false
+                    cardInputLayout.isErrorEnabled = true
+                    cardInputLayout.error = "Please valid card number"
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
 
-    return root
-  }
+
+        cancelButton.setOnClickListener { dismiss() }
+        submitButton.setOnClickListener { dismiss() }
+
+
+        return root
+    }
 
 }

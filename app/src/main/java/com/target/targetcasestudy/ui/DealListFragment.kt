@@ -14,15 +14,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.ViewModel.DealItemsViewModel
 import com.target.targetcasestudy.data.DealItem
+import com.target.targetcasestudy.ui.payment.PaymentDialogFragment
 
 
-class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener {
+class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener,SwipeRefreshLayout.OnRefreshListener {
 
 
     private lateinit var viewModel: DealItemsViewModel
@@ -32,6 +35,9 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener {
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.loading_layout) lateinit var loaderView :LinearLayout
+
+
+    @BindView(R.id.swipe_refresh) lateinit var swipeRefresh :SwipeRefreshLayout
 
 
     private lateinit var dealsItemAdapter: DealItemAdapter
@@ -46,6 +52,7 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         dealsItemAdapter = DealItemAdapter(this)
         recyclerView.adapter = dealsItemAdapter
+        swipeRefresh.setOnRefreshListener(this)
 
         return view
     }
@@ -86,5 +93,29 @@ class DealListFragment : Fragment(), DealItemAdapter.OnDealClickedListener {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
 
+    }
+
+    override fun onRefresh() {
+        loaderView.visibility = View.GONE
+        viewModel.getBookListObserver().observe(viewLifecycleOwner, Observer<DealItem> {
+            if (it != null) {
+                loaderView.visibility = View.GONE
+                dealsItemAdapter.dealsList = it.productsList!!
+                dealsItemAdapter.notifyDataSetChanged()
+                swipeRefresh.isRefreshing=false
+
+            } else {
+                loaderView!!.visibility = View.GONE
+                swipeRefresh.isRefreshing=false
+                Toast.makeText(context, "Error in fetching data", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.fetchDealsList()
+    }
+
+
+    @OnClick(R.id.open_card)
+    fun openCardDialog() {
+        activity?.supportFragmentManager?.let { PaymentDialogFragment().show(it, "CreditCardValidation") }
     }
 }

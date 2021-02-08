@@ -1,13 +1,17 @@
 package com.target.targetcasestudy
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.target.targetcasestudy.ui.DealListFragment
-import com.target.targetcasestudy.ui.payment.PaymentDialogFragment
 
 class MainActivity : AppCompatActivity() {
+
+
+  fun getIntent(context: Context?): Intent? {
+    return Intent(context, MainActivity::class.java)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -18,20 +22,20 @@ class MainActivity : AppCompatActivity() {
       .commit()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.menu_main, menu)
-    return true
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.credit_card -> {
-        PaymentDialogFragment().show(supportFragmentManager, "CreditCardValidation")
-        true
-      }
-      else -> false
-    }
-  }
+//  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//    menuInflater.inflate(R.menu.menu_main, menu)
+//    return true
+//  }
+//
+//  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//    return when (item.itemId) {
+//      R.id.credit_card -> {
+//        PaymentDialogFragment().show(supportFragmentManager, "CreditCardValidation")
+//        true
+//      }
+//      else -> false
+//    }
+//  }
 
   override fun onBackPressed() {
     val fragment =
